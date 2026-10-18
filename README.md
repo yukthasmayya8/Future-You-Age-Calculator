@@ -63,9 +63,13 @@ No additional software, dependencies, or backend services are required. A modern
 - Future age predictions are calculated for the first day of the selected month.
 - The displayed time remaining is an approximation.
 
-## AI-Assisted Development
+## AI-Assisted Development and Vibe Coding
 
-This project was developed with assistance from Claude AI.
+This project was developed as part of my exploration of AI-assisted software development and **vibe coding**.
+
+I learned about the concept and workflow of vibe coding after participating in a **GenAI Workshop at Manipal Institute of Technology**, conducted by **Aditya Kaki Sir**. The workshop introduced practical approaches to using generative AI for brainstorming, prototyping, coding, and refining software projects.
+
+The insights from the workshop helped me explore how AI tools can support the development process while still requiring human review, testing, and decision-making. The application was developed with AI-assisted guidance and adapted to meet the project's intended functionality.
 
 ## License
 
