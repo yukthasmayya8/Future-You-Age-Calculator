@@ -20,14 +20,12 @@ Tech Stack
 
 AI-Assisted Development
 
-This project was developed with assistance from Claude AI for implementation and development support.
+Developed with assistance from Claude AI.
 
 Project Structure
 
 future-you-age-calculator/
 └── index.html
-
-- "index.html" – Contains the HTML structure, CSS styling, and JavaScript functionality for age calculation and future age prediction.
 
 How to Run
 
@@ -39,21 +37,22 @@ How to Run
    
    cd future-you-age-calculator
 
-3. Open "index.html" in any modern web browser.
+3. Open "index.html" in a web browser.
 
 How It Works
 
 1. Enter your date of birth and click Calculate Age.
-2. View your current age and total months, weeks, and days lived.
+2. View your current age in years, months, and days, along with total months, weeks, and days.
 3. Select a future month and year.
 4. Click Predict Future Age to view the predicted age, approximate time remaining, and life stage.
 
 Notes
 
-- The application runs entirely in the browser and does not require a backend or external libraries.
+- The application runs entirely in the browser.
+- No backend or external libraries are required.
 - Future age predictions are calculated for the first day of the selected month.
 - The time remaining is displayed as an approximation.
 
 License
 
-This project is intended for educational and demonstration purposes.
+For educational and demonstration purposes.
