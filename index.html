@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Age Calculator & Future Predictor</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            max-width: 700px;
+            width: 100%;
+            padding: 40px;
+        }
+
+        h1 {
+            color: #667eea;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2em;
+        }
+
+        .section {
+            margin-bottom: 30px;
+        }
+
+        .section h2 {
+            color: #333;
+            margin-bottom: 20px;
+            font-size: 1.4em;
+            border-bottom: 2px solid #667eea;
+            padding-bottom: 10px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #555;
+            font-weight: 600;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+
+        input:focus, select:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 14px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        .result {
+            margin-top: 20px;
+            padding: 20px;
+            background: #f8f9ff;
+            border-radius: 10px;
+            border-left: 4px solid #667eea;
+            display: none;
+        }
+
+        .result.show {
+            display: block;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .result h3 {
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+
+        .result p {
+            color: #555;
+            line-height: 1.6;
+            margin: 5px 0;
+        }
+
+        .age-details {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .age-box {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .age-box .number {
+            font-size: 2em;
+            font-weight: bold;
+            color: #667eea;
+        }
+
+        .age-box .label {
+            font-size: 0.9em;
+            color: #888;
+            margin-top: 5px;
+        }
+
+        .prediction-section {
+            margin-top: 30px;
+            padding: 20px;
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            border-radius: 10px;
+            color: white;
+        }
+
+        .prediction-section h3 {
+            margin-bottom: 15px;
+            font-size: 1.3em;
+        }
+
+        .prediction-item {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            backdrop-filter: blur(10px);
+        }
+
+        .prediction-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .prediction-item strong {
+            font-size: 1.1em;
+        }
+
+        .future-inputs {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎂 Age Calculator & Future Predictor</h1>
+
+        <!-- Age Calculator Section -->
+        <div class="section">
+            <h2>📅 Calculate Your Current Age</h2>
+            <div class="form-group">
+                <label for="birthdate">Date of Birth:</label>
+                <input type="date" id="birthdate" required>
+            </div>
+            <button onclick="calculateAge()">Calculate Age</button>
+            <div id="ageResult" class="result"></div>
+        </div>
+
+        <!-- Future Prediction Section -->
+        <div class="section">
+            <h2>🔮 Future Age Prediction</h2>
+            <div class="future-inputs">
+                <div class="form-group">
+                    <label for="futureMonth">Month:</label>
+                    <select id="futureMonth" required>
+                        <option value="1">January</option>
+                        <option value="2">February</option>
+                        <option value="3">March</option>
+                        <option value="4">April</option>
+                        <option value="5">May</option>
+                        <option value="6">June</option>
+                        <option value="7">July</option>
+                        <option value="8">August</option>
+                        <option value="9">September</option>
+                        <option value="10">October</option>
+                        <option value="11">November</option>
+                        <option value="12">December</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="futureYear">Year:</label>
+                    <input type="number" id="futureYear" min="2025" max="2100" value="2030" required>
+                </div>
+            </div>
+            <button onclick="predictFutureAge()">Predict Future Age</button>
+            <div id="predictionResult" class="result"></div>
+        </div>
+    </div>
+
+    <script>
+        let birthDate = null;
+
+        function calculateAge() {
+            const birthdate = document.getElementById('birthdate').value;
+            const resultDiv = document.getElementById('ageResult');
+            
+            if (!birthdate) {
+                resultDiv.innerHTML = '<p style="color: #e74c3c;">Please enter your date of birth.</p>';
+                resultDiv.classList.add('show');
+                return;
+            }
+            
+            const birth = new Date(birthdate);
+            const today = new Date();
+            
+            if (birth > today) {
+                resultDiv.innerHTML = '<p style="color: #e74c3c;">Birth date cannot be in the future!</p>';
+                resultDiv.classList.add('show');
+                return;
+            }
+            
+            birthDate = birth; // Store for future predictions
+            
+            let years = today.getFullYear() - birth.getFullYear();
+            let months = today.getMonth() - birth.getMonth();
+            let days = today.getDate() - birth.getDate();
+            
+            if (days < 0) {
+                months--;
+                days += new Date(today.getFullYear(), today.getMonth(), 0).getDate();
+            }
+            
+            if (months < 0) {
+                years--;
+                months += 12;
+            }
+            
+            const totalDays = Math.floor((today - birth) / (1000 * 60 * 60 * 24));
+            const totalMonths = years * 12 + months;
+            const totalWeeks = Math.floor(totalDays / 7);
+            
+            resultDiv.innerHTML = `
+                <h3>Your Current Age:</h3>
+                <p style="font-size: 1.2em; font-weight: bold;">You are ${years} years, ${months} months, and ${days} days old</p>
+                <div class="age-details">
+                    <div class="age-box">
+                        <div class="number">${totalMonths}</div>
+                        <div class="label">Months</div>
+                    </div>
+                    <div class="age-box">
+                        <div class="number">${totalWeeks}</div>
+                        <div class="label">Weeks</div>
+                    </div>
+                    <div class="age-box">
+                        <div class="number">${totalDays}</div>
+                        <div class="label">Days</div>
+                    </div>
+                </div>
+            `;
+            resultDiv.classList.add('show');
+        }
+        
+        function predictFutureAge() {
+            const resultDiv = document.getElementById('predictionResult');
+            
+            // Check if birthdate is set
+            if (!birthDate) {
+                const birthdateInput = document.getElementById('birthdate').value;
+                if (!birthdateInput) {
+                    resultDiv.innerHTML = '<p style="color: #e74c3c;">Please calculate your current age first!</p>';
+                    resultDiv.classList.add('show');
+                    return;
+                }
+                birthDate = new Date(birthdateInput);
+            }
+            
+            const futureMonth = parseInt(document.getElementById('futureMonth').value);
+            const futureYear = parseInt(document.getElementById('futureYear').value);
+            
+            // Create future date (set to first day of selected month)
+            const futureDate = new Date(futureYear, futureMonth - 1, 1);
+            const today = new Date();
+            
+            if (futureDate <= today) {
+                resultDiv.innerHTML = '<p style="color: #e74c3c;">Please select a future date!</p>';
+                resultDiv.classList.add('show');
+                return;
+            }
+            
+            // Calculate age at future date
+            let years = futureDate.getFullYear() - birthDate.getFullYear();
+            let months = futureDate.getMonth() - birthDate.getMonth();
+            
+            if (months < 0) {
+                years--;
+                months += 12;
+            }
+            
+            // Calculate time until that date
+            const timeUntil = futureDate - today;
+            const daysUntil = Math.floor(timeUntil / (1000 * 60 * 60 * 24));
+            const monthsUntil = Math.floor(daysUntil / 30);
+            const yearsUntil = Math.floor(monthsUntil / 12);
+            
+            const monthNames = ["January", "February", "March", "April", "May", "June",
+                "July", "August", "September", "October", "November", "December"];
+            
+            resultDiv.innerHTML = `
+                <div class="prediction-section">
+                    <h3>🔮 Future Age Prediction</h3>
+                    <div class="prediction-item">
+                        <strong>In ${monthNames[futureMonth - 1]} ${futureYear}</strong><br>
+                        You will be approximately <strong>${years} years old</strong>
+                    </div>
+                    <div class="prediction-item">
+                        <strong>Time Until Then:</strong><br>
+                        ${yearsUntil > 0 ? yearsUntil + ' years, ' : ''}${monthsUntil % 12} months (${daysUntil} days)
+                    </div>
+                    <div class="prediction-item">
+                        <strong>Life Stage:</strong><br>
+                        ${getLifeStage(years)}
+                    </div>
+                </div>
+            `;
+            resultDiv.classList.add('show');
+        }
+        
+        function getLifeStage(age) {
+            if (age < 13) return "You'll be a child/preteen 👶";
+            if (age < 20) return "You'll be a teenager 🧑";
+            if (age < 30) return "You'll be in your twenties - Young adult 🎓";
+            if (age < 40) return "You'll be in your thirties - Prime adult years 💼";
+            if (age < 50) return "You'll be in your forties - Experienced adult 🎯";
+            if (age < 60) return "You'll be in your fifties - Mature adult 🌟";
+            if (age < 70) return "You'll be in your sixties - Senior years 🎨";
+            if (age < 80) return "You'll be in your seventies - Golden years 📚";
+            if (age < 90) return "You'll be in your eighties - Wise elder 🦉";
+            return "You'll be in your nineties or beyond - Living legend! 👑";
+        }
+    </script>
+</body>
+</html>
